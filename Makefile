@@ -12,7 +12,7 @@
 
 NAME = ircserv
 CXX = c++
-SRCS = main.cpp 
+SRCS = main.cpp irc.cpp
 OBJS = $(SRCS:.cpp=.o)
 CXXFLAGS = -Werror -Wall -Wextra -std=c++98 -g
 .cpp.o:
