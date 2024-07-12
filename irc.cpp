@@ -9,18 +9,21 @@ void IrcServer::setupServerSocket() {
         exit(EXIT_FAILURE);
     }
 
+    sockaddr_in address;
+    address.sin_family = AF_INET;
+    address.sin_port = htons(this->_port);
+    address.sin_addr.s_addr = INADDR_ANY;
     int opt = 1;
-    if (setsockopt(_server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt)) < 0) {
+
+    //option de reutilisation de l'adresse
+    //return 0 if successful -1 otherwise
+    if (setsockopt(_server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
         perror("setsockopt failed");
         exit(EXIT_FAILURE);
     }
 
-    sockaddr_in address;
-    address.sin_family = AF_INET;
-    address.sin_addr.s_addr = INADDR_ANY;
-    address.sin_port = htons(_port);
 
-    if (bind(_server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
+    if (bind(_server_fd, (struct sockaddr *)&address, sizeof(address))) {
         perror("bind failed");
         exit(EXIT_FAILURE);
     }
@@ -101,4 +104,3 @@ void IrcServer::handleClientMessage(int client_fd) {
         write(client_fd, buffer, bytes_read);
     }
 }
-
