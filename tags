@@ -6,17 +6,31 @@
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 CXX	Makefile	/^CXX = c++$/;"	m
 CXXFLAGS	Makefile	/^CXXFLAGS = -Werror -Wall -Wextra -std=c++98 -g$/;"	m
-IrcServer	irc.cpp	/^IrcServer::IrcServer(int p, const std::string &pw) : _port(p), _password(pw), _server_fd(-1) {}$/;"	f	class:IrcServer
-IrcServer	irc.hpp	/^class IrcServer {$/;"	c
+Channel	irc.hpp	/^    Channel() {}$/;"	f	class:Channel
+Channel	irc.hpp	/^    Channel(const std::string& name) : name(name) {}$/;"	f	class:Channel
+Channel	irc.hpp	/^class Channel $/;"	c
+IrcServer	irc.cpp	/^IrcServer::IrcServer(int p, const std::string &pw) : _port(p), _password(pw), _server_fd(-1) $/;"	f	class:IrcServer
+IrcServer	irc.hpp	/^class IrcServer $/;"	c
 NAME	Makefile	/^NAME = ircserv$/;"	m
 OBJS	Makefile	/^OBJS = $(SRCS:.cpp=.o)$/;"	m
 SRCS	Makefile	/^SRCS = main.cpp irc.cpp$/;"	m
-_fds	irc.hpp	/^    std::vector<pollfd> _fds;$/;"	m	class:IrcServer
+User	irc.hpp	/^    User(int fd) : fd(fd), nickname(""), username("") {}$/;"	f	class:User
+User	irc.hpp	/^class User $/;"	c
+_channels	irc.hpp	/^    std::map<std::string, Channel> _channels;$/;"	m	class:IrcServer
+_fds	irc.hpp	/^    std::vector<struct pollfd> _fds;$/;"	m	class:IrcServer
 _password	irc.hpp	/^    std::string _password;$/;"	m	class:IrcServer
 _port	irc.hpp	/^    int _port;$/;"	m	class:IrcServer
 _server_fd	irc.hpp	/^    int _server_fd;$/;"	m	class:IrcServer
-acceptNewClient	irc.cpp	/^void IrcServer::acceptNewClient() {$/;"	f	class:IrcServer
-handleClientMessage	irc.cpp	/^void IrcServer::handleClientMessage(int client_fd) {$/;"	f	class:IrcServer
-main	main.cpp	/^int main(int ac, char **av) {$/;"	f
-run	irc.cpp	/^void IrcServer::run() {$/;"	f	class:IrcServer
-setupServerSocket	irc.cpp	/^void IrcServer::setupServerSocket() {$/;"	f	class:IrcServer
+_users	irc.hpp	/^    std::map<int, User*> _users;$/;"	m	class:IrcServer
+acceptNewClient	irc.cpp	/^void IrcServer::acceptNewClient() $/;"	f	class:IrcServer
+fd	irc.hpp	/^    int fd;$/;"	m	class:User
+handleClientMessage	irc.cpp	/^void IrcServer::handleClientMessage(int client_fd) $/;"	f	class:IrcServer
+handleCommand	irc.cpp	/^void IrcServer::handleCommand(int client_fd, const std::string &command) $/;"	f	class:IrcServer
+main	main.cpp	/^int main(int ac, char **av) $/;"	f
+name	irc.hpp	/^    std::string name;$/;"	m	class:Channel
+nickname	irc.hpp	/^    std::string nickname;$/;"	m	class:User
+removeClient	irc.cpp	/^void IrcServer::removeClient(int client_fd) $/;"	f	class:IrcServer
+run	irc.cpp	/^void IrcServer::run() $/;"	f	class:IrcServer
+setupServerSocket	irc.cpp	/^void IrcServer::setupServerSocket() $/;"	f	class:IrcServer
+username	irc.hpp	/^    std::string username;$/;"	m	class:User
+users	irc.hpp	/^    std::vector<User*> users;$/;"	m	class:Channel
